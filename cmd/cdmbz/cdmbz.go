@@ -13,20 +13,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package server
+package main
 
 import (
-	"strconv"
+	"github.com/defsub/cdmbz/server"
 )
 
-func itoa(i int) string {
-	return strconv.Itoa(i)
-}
-
-func atoi(a string) int {
-	i, err := strconv.Atoi(a)
-	if err != nil {
-		i = 0
-	}
-	return i
+func main() {
+	server.Serve()
 }
