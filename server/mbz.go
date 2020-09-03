@@ -60,7 +60,7 @@ func (r *mbzRelease) media(trackCount int) *mbzMedia {
 	return nil
 }
 
-func (r *mbzRelease) mediaCount(trackCount int) int {
+func (r *mbzRelease) mediaCount() int {
 	return len(r.Media)
 }
 
