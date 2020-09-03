@@ -91,11 +91,14 @@ func (sess *session) read(cmd []string, w io.Writer) {
 	release := sess.pick()
 	if release != nil {
 		wr.WriteString(fmt.Sprintf("DISCID=%s\n", sess.discid))
-		wr.WriteString(fmt.Sprintf("DTITLE=%s / %s\n", release.Artist[0].Name, release.Title))
+		title := release.Title
+		media := release.media(sess.trackCount)
+		if media != nil && release.mediaCount() > 1 {
+			title = fmt.Sprintf("%s (disc %d)", title, media.Position)
+		}
+		wr.WriteString(fmt.Sprintf("DTITLE=%s / %s\n", release.Artist[0].Name, title))
 		date := strings.Split(release.Date, "-")
 		wr.WriteString(fmt.Sprintf("DYEAR=%s\n", date[0]))
-
-		media := release.media(sess.trackCount)
 		if media != nil {
 			for _, t := range media.Tracks  {
 				wr.WriteString(fmt.Sprintf("TTITLE%d=%s\n", t.Position-1, t.Title))
