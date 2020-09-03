@@ -43,6 +43,7 @@ type mbzMedia struct {
 	Title      string     `json:"title"`
 	TrackCount int        `json:"track-count"`
 	Tracks     []mbzTrack `json:"tracks"`
+	Position   int        `json:"position"`
 }
 
 type mbzTrack struct {
@@ -57,6 +58,10 @@ func (r *mbzRelease) media(trackCount int) *mbzMedia {
 		}
 	}
 	return nil
+}
+
+func (r *mbzRelease) mediaCount(trackCount int) int {
+	return len(r.Media)
 }
 
 func (sess *session) pick() *mbzRelease {
